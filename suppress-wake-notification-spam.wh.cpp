@@ -1,7 +1,7 @@
 // ==WindhawkMod==
 // @id              suppress-wake-notification-spam
 // @name            Suppress Wake Notification Spam
-// @description     Prevents queued notification banners and sounds from flooding the desktop after wake or unlock while keeping notifications in Notification Center.
+// @description     Stops queued notifications from showing banners and sounds after wake or unlock. Notifications stay in Notification Center.
 // @version         1.0.0
 // @author          YiftahCooper
 // @github          https://github.com/YiftahCooper
@@ -15,45 +15,13 @@
 /*
 # Suppress Wake Notification Spam
 
-This mod temporarily enables Windows' own Do Not Disturb profile while the
-interactive session is away:
+Stops queued Windows notifications from dumping banners and sounds when the
+monitor wakes, Windows is unlocked, or the PC resumes.
 
-- the display is powered off;
-- the Windows session is locked; or
-- the system is suspending/asleep.
+The mod turns Do Not Disturb on while you're away, then restores whatever DND
+setting you had before. Notifications are still kept in Notification Center.
 
-When the display/session becomes active again, the mod waits briefly and then
-restores the exact user-selected DND profile that existed before the mod made
-its temporary change.
-
-The important distinction is that the mod does **not** delete notifications.
-Windows still receives them and keeps them in Notification Center; the mod is
-intended only to suppress banners and notification sounds while you are away,
-so Windows has no backlog of banners to replay when you return.
-
-## Safety behavior
-
-- If DND was already enabled before the display went off / the PC was locked,
-  the mod leaves it alone and does not turn it off later.
-- If the DND profile changes while the mod owns the temporary change, the mod
-  refuses to overwrite the newer profile on restore.
-- A small persistent ownership marker is used so that, if Windhawk is killed
-  while the mod temporarily owns DND, the next start can restore the previous
-  profile rather than leaving DND stuck on.
-
-## Privacy and logging
-
-The mod does not inspect notification payloads, notification text, senders,
-subjects, or message contents. It does not need to hook individual apps or
-notifications at all. Diagnostic logs contain only display/session power state,
-DND profile state, timing, and API/error information.
-
-## Implementation
-
-The mod uses the same undocumented QuietHoursSettings COM service used by
-Windows-aware desktop applications, rather than editing the CloudStore binary
-registry data. Display state comes from GUID_SESSION_DISPLAY_STATUS and
-lock/unlock state from WTS session notifications.
+It does not read or log notification contents.
 */
 // ==/WindhawkModReadme==
 
